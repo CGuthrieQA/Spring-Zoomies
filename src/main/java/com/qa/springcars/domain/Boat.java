@@ -11,6 +11,13 @@ public class Boat {
 		this.floats = floats;
 	}
 	
-	
+	// getters and setters
+	public boolean isFloats() {
+		return floats;
+	}
 
+	public void setFloats(boolean floats) {
+		this.floats = floats;
+	}
+	
 }
