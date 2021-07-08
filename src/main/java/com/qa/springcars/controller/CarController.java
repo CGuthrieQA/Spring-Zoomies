@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.springcars.domain.Car;
-import com.qa.springcars.service.CarServiceList;
+import com.qa.springcars.service.CarServiceDB;
 
 @RestController
 @RequestMapping("/cars") // http://127.0.0.1:8080/cars...
@@ -23,11 +23,11 @@ public class CarController {
 
 	// Mapping URLs to METHODS
 
-	private CarServiceList service;
+	private CarServiceDB service;
 
 	// pull down object from the beanbag
 	@Autowired
-	public CarController(CarServiceList service) {
+	public CarController(CarServiceDB service) {
 		this.service = service;
 	}
 
@@ -35,26 +35,26 @@ public class CarController {
 
 	// CREATE
 	@PostMapping("/create")
-	public ResponseEntity<String> carCreate(@RequestBody Car c) {
-		return new ResponseEntity<>(this.service.carCreate(c), HttpStatus.CREATED);
+	public ResponseEntity<String> create(@RequestBody Car c) {
+		return new ResponseEntity<>(this.service.create(c), HttpStatus.CREATED);
 	}
 
 	// READ
 	@GetMapping("/read")
-	public ResponseEntity<List<Car>> carReadAll() {
-		return ResponseEntity.ok(this.service.carReadAll());
+	public ResponseEntity<List<Car>> readAll() {
+		return ResponseEntity.ok(this.service.readAll());
 	}
 
 	// UPDATE - PUT (REPLACE) / PATCH (UPDATE an ELEMENT)
 	@PatchMapping("/update/{index}")
-	public ResponseEntity<Car> carUpdate(@PathVariable int index, @RequestBody Car newCar) {
-		return new ResponseEntity<>(this.service.carUpdate(index, newCar), HttpStatus.ACCEPTED);
+	public ResponseEntity<Car> update(@PathVariable Long index, @RequestBody Car newCar) {
+		return new ResponseEntity<>(this.service.update(index, newCar), HttpStatus.ACCEPTED);
 	}
 
 	// DELETE - By Index
 	@DeleteMapping("/delete/{index}")
-	public ResponseEntity<Car> carDelete(@PathVariable int index) {
-		return this.service.carDelete(index) ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
+	public ResponseEntity<Car> delete(@PathVariable Long index) {
+		return this.service.delete(index) ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 

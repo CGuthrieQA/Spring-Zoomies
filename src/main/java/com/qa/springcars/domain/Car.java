@@ -1,11 +1,24 @@
 package com.qa.springcars.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Car {
 
 	// Variables
+	@Id // Primary Key!
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment
+	private Long id;
+	
 	private String make;
+	
 	private String model;
+	
 	private int engine;
+	
 	private boolean spoiler;
 	
 	// Methods
